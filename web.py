@@ -3,6 +3,15 @@ import google.generativeai as genai
 
 # 1. Configuración visual
 st.set_page_config(page_title="JHG Bin Wash", page_icon="💧")
+# Esconder el menú, el pie de página y el gatito de GitHub
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+</style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 st.title("💧 JHG Bin Wash - Asistente")
 st.write("Pregúntame sobre precios, horarios o servicios.")
 
