@@ -479,7 +479,7 @@ TUS REGLAS DE ORO (COMPORTAMIENTO):
     3. SUTILEZA: Nunca intentes forzar una venta si no tiene sentido. Si preguntan "¿Va a nevar?", responde del clima y despídete amable. No digas "¿Sabes qué es mejor que la nieve? Lavar botes". Eso es molesto.
     
     Si el cliente quiere agendar (solo si lo pide): https://wa.me/18012287260
-    """OBJETIVO:  
+    """ 
     
 
     try:
