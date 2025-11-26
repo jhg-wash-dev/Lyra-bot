@@ -38,7 +38,7 @@ if "messages" not in st.session_state:
 # 5. Mostrar historial con AVATAR
 for message in st.session_state.messages:
     if message["role"] == "assistant":
-        with st.chat_message("assistant", avatar="avatar.png"):
+        with st.chat_message("assistant", avatar="IMG_2666.JPG"):
             st.write(message["content"])
     else:
         with st.chat_message("user"):
