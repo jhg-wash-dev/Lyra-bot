@@ -32,7 +32,7 @@ except Exception as e:
 if "messages" not in st.session_state:
     st.session_state.messages = []
     # Mensaje de bienvenida con AVATAR
-    with st.chat_message("assistant", avatar="avatar.png"):
+    with st.chat_message("assistant", avatar="IMG_2666.JPG"):
         st.write("¡Hola! Soy Lyra. ¿En qué puedo ayudarte hoy?")
 
 # 5. Mostrar historial con AVATAR
