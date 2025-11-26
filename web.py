@@ -7,12 +7,12 @@ st.title("💧 JHG Bin Wash - Asistente")
 st.write("Pregúntame sobre precios, horarios o servicios.")
 
 # 2. TU LLAVE (Pégala aquí abajo)
-api_key = "AIzaSyAgeLxb8RVOvNoKoCAtb_fI5Y9TKRFl1nQ" 
+api_key = st.secrets["GOOGLE_API_KEY"]
 
 # 3. Conexión al motor CORRECTO (Gemini 2.0 Flash)
 try:
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-2.0-flash') # ¡Este es el bueno!
+    model = genai.GenerativeModel('gemini-2.0-flash')
     chat = model.start_chat(history=[])
 except Exception as e:
     st.error(f"Error de configuración: {e}")
@@ -41,6 +41,8 @@ if prompt:
     
     # 1. Aquí va TODO lo que copiaste de AI Studio (Las 7 partes juntas)
     info_empresa = """
+1. ASISTENTE GENERAL CON ACCESO A INTERNET: Tienes una herramienta de Búsqueda de Google conectada. ÚSALA SIEMPRE que te pregunten por información actual (Clima, Noticias, Deportes, Tráfico). No digas "no tengo acceso", simplemente busca la respuesta y dila.
+
 DIRECTIVAS DE PERSONALIDAD Y CAPACIDADES:
 Eres Lyra, la Inteligencia Artificial avanzada de JHG Bin Wash.
 Tu personalidad tiene dos facetas:
