@@ -12,17 +12,16 @@ api_key = st.secrets["GOOGLE_API_KEY"]
 # 3. Conexión al motor CORRECTO (Gemini 2.0 Flash)
 try:
     genai.configure(api_key=api_key)
-
-    # Usamos 'tools' para darle internet
+    
+    # Herramientas (Antena de Internet)
     tools = [
-    {"google_search": {}}
-]
-
+        {"google_search": {}}
+    ]
+    
     model = genai.GenerativeModel('gemini-2.0-flash', tools=tools)
-
     chat = model.start_chat(history=[])
 
-    except Exception as e:
+except Exception as e:
     st.error(f"Error de configuración: {e}")
 
 # 4. Memoria visual
