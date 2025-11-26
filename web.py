@@ -3,7 +3,8 @@ import google.generativeai as genai
 
 # 1. Configuración visual
 st.set_page_config(page_title="JHG Bin Wash", page_icon="💧")
-# Esconder el menú, el pie de página y el gatito de GitHub
+
+# Esconder el menú feo
 hide_streamlit_style = """
 <style>
 #MainMenu {visibility: hidden;}
@@ -12,38 +13,36 @@ header {visibility: hidden;}
 </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 st.title("💧 JHG Bin Wash - Asistente")
 st.write("Pregúntame sobre precios, horarios o servicios.")
 
-# 2. TU LLAVE (Pégala aquí abajo)
+# 2. TU LLAVE (Desde la caja fuerte)
 api_key = st.secrets["GOOGLE_API_KEY"]
 
-# 3. Conexión con Antena Clásica
+# 3. Conexión ESTABLE (Sin antena, pero rápida y segura)
 try:
     genai.configure(api_key=api_key)
-    
-    # Esta es la forma correcta para la versión clásica
-    tools = [
-        {"google_search": {}}
-    ]
-    
-    # OJO: Aquí está el truco, usamos gemini-pro que sí aguanta esta antena
-    model = genai.GenerativeModel('gemini-1.5-flash', tools=tools)
+    model = genai.GenerativeModel('gemini-2.0-flash') 
     chat = model.start_chat(history=[])
-
 except Exception as e:
-    st.error(f"Error: {e}")
+    st.error(f"Error de configuración: {e}")
 
 # 4. Memoria visual
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    with st.chat_message("assistant"):
+    # Mensaje de bienvenida con AVATAR
+    with st.chat_message("assistant", avatar="avatar.png"):
         st.write("¡Hola! Soy Lyra. ¿En qué puedo ayudarte hoy?")
 
-# 5. Mostrar historial
+# 5. Mostrar historial con AVATAR
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.write(message["content"])
+    if message["role"] == "assistant":
+        with st.chat_message("assistant", avatar="avatar.png"):
+            st.write(message["content"])
+    else:
+        with st.chat_message("user"):
+            st.write(message["content"])
 
 # 6. El Chat
 prompt = st.chat_input("Escribe tu pregunta aquí...")
@@ -495,7 +494,8 @@ TUS REGLAS DE ORO (COMPORTAMIENTO):
     try:
         response = chat.send_message(instrucciones)
         
-        with st.chat_message("assistant"):
+        # Respuesta de Lyra con AVATAR
+        with st.chat_message("assistant", avatar="avatar.png"):
             st.write(response.text)
         st.session_state.messages.append({"role": "assistant", "content": response.text})
         
