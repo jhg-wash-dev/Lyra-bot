@@ -18,15 +18,21 @@ st.write("Pregúntame sobre precios, horarios o servicios.")
 # 2. TU LLAVE (Pégala aquí abajo)
 api_key = st.secrets["GOOGLE_API_KEY"]
 
-# 3. Conexión al motor CORRECTO (Gemini 2.0 Flash)
+# 3. Conexión con Antena Clásica
 try:
     genai.configure(api_key=api_key)
-    # Antena desconectada para máxima estabilidad
-    model = genai.GenerativeModel('gemini-2.0-flash') 
+    
+    # Esta es la forma correcta para la versión clásica
+    tools = [
+        {"google_search": {}}
+    ]
+    
+    # OJO: Aquí está el truco, usamos gemini-pro que sí aguanta esta antena
+    model = genai.GenerativeModel('gemini-1.5-flash', tools=tools)
     chat = model.start_chat(history=[])
 
 except Exception as e:
-    st.error(f"Error de configuración: {e}")
+    st.error(f"Error: {e}")
 
 # 4. Memoria visual
 if "messages" not in st.session_state:
