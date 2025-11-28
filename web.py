@@ -495,7 +495,7 @@ TUS REGLAS DE ORO (COMPORTAMIENTO):
         response = chat.send_message(instrucciones)
         
         # Respuesta de Lyra con AVATAR
-        with st.chat_message("assistant", avatar="avatar.png"):
+        with st.chat_message("assistant", avatar="IMG_2666.JPG"):
             st.write(response.text)
         st.session_state.messages.append({"role": "assistant", "content": response.text})
         
