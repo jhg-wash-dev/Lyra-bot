@@ -20,19 +20,11 @@ st.write("Pregúntame sobre precios, horarios o servicios.")
 # 2. TU LLAVE (Desde la caja fuerte)
 api_key = st.secrets["GOOGLE_API_KEY"]
 
-# 3. Conexión CON ANTENA (Google Search)
+# 3. Conexión ESTABLE (Sin experimentos)
 try:
     genai.configure(api_key=api_key)
-    
-    # Esta es la configuración correcta para la versión nueva
-    tools = [
-        {"google_search": {}}
-    ]
-    
-    # Usamos el modelo 2.0 Flash que es rapidísimo
-    model = genai.GenerativeModel('gemini-2.0-flash', tools=tools)
+    model = genai.GenerativeModel('gemini-2.0-flash') 
     chat = model.start_chat(history=[])
-
 except Exception as e:
     st.error(f"Error de configuración: {e}")
 
@@ -457,16 +449,16 @@ No solo lavamos, transformamos tus botes. Usamos agua a alta presión, desinfecc
 PLANES DISPONIBLES (Solo vende estos):
 
 1. LAVADO DE 1 BOTE ($17 USD):
-   - El Gancho: "La opción perfecta para probar nuestra calidad por primera vez sin compromiso."
+   -"La opción perfecta para probar nuestra calidad por primera vez sin compromiso."
    
 2. PAQUETE DE 2 BOTES ($30 USD):
-   - El Gancho: "Ideal para la mayoría de las casas. Ahorras dinero y dejas todo limpio en una sola visita."
+   -"Ideal para la mayoría de las casas. Ahorras dinero y dejas todo limpio en una sola visita."
 
 3. PAQUETE DE 3 BOTES ($45 USD):
-   - El Gancho: "¿Tienes mucha basura acumulada? Este paquete es la solución completa para familias grandes."
+   -"¿Tienes mucha basura acumulada? Este paquete es la solución completa para familias grandes."
 
 4. MEMBRESÍA MENSUAL ($40 USD/mes):
-   - El Gancho: "Nuestra opción VIP. Por solo $40 al mes (precio promocional), venimos cada 15 días (una semana sí, otra no). Olvídate de los malos olores para siempre."
+   -"Nuestra opción VIP. Por solo $40 al mes (precio promocional), venimos cada 15 días (una semana sí, otra no). Olvídate de los malos olores para siempre."
    - Nota: El precio subirá a $50 después de los primeros 2 meses, ¡aprovecha ahora!
 
 REGLAS DE VENTA:
