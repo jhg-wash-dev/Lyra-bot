@@ -20,11 +20,19 @@ st.write("Pregúntame sobre precios, horarios o servicios.")
 # 2. TU LLAVE (Desde la caja fuerte)
 api_key = st.secrets["GOOGLE_API_KEY"]
 
-# 3. Conexión ESTABLE (Sin antena, pero rápida y segura)
+# 3. Conexión CON ANTENA (Google Search)
 try:
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-2.0-flash') 
+    
+    # Esta es la configuración correcta para la versión nueva
+    tools = [
+        {"google_search": {}}
+    ]
+    
+    # Usamos el modelo 2.0 Flash que es rapidísimo
+    model = genai.GenerativeModel('gemini-2.0-flash', tools=tools)
     chat = model.start_chat(history=[])
+
 except Exception as e:
     st.error(f"Error de configuración: {e}")
 
@@ -487,7 +495,7 @@ TUS REGLAS DE ORO (COMPORTAMIENTO):
 
     3. SUTILEZA: Nunca intentes forzar una venta si no tiene sentido. Si preguntan "¿Va a nevar?", responde del clima y despídete amable. No digas "¿Sabes qué es mejor que la nieve? Lavar botes". Eso es molesto.
     
-    Si el cliente quiere agendar (solo si lo pide): https://wa.me/18012287260
+    Si el cliente quiere agendar: https://wa.me/18012287260?text=Hola,%20vengo%20de%20hablar%20con%20Lyra%20y%20quiero%20agendar%20un%20servicio
     """ 
     
 
