@@ -4,7 +4,7 @@ import google.generativeai as genai
 # 1. Configuración visual
 st.set_page_config(page_title="JHG Bin Wash", page_icon="💧")
 
-# Esconder el menú, el pie de página y el gatito de GitHub
+# Estilos visuales
 hide_streamlit_style = """
 <style>
 #MainMenu {visibility: hidden;}
@@ -17,10 +17,10 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 st.title("💧 JHG Bin Wash - Asistente")
 st.write("Pregúntame sobre precios, horarios o servicios.")
 
-# 2. TU LLAVE (Desde la caja fuerte)
+# 2. TU LLAVE
 api_key = st.secrets["GOOGLE_API_KEY"]
 
-# 3. Conexión ESTABLE (Sin antena, pero rápida y segura)
+# 3. Conexión
 try:
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-2.0-flash') 
@@ -28,14 +28,14 @@ try:
 except Exception as e:
     st.error(f"Error de configuración: {e}")
 
-# 4. Memoria visual
+# 4. Memoria visual (El chat)
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    # Mensaje de bienvenida con AVATAR
+    # Mensaje de bienvenida
     with st.chat_message("assistant", avatar="IMG_2666.JPG"):
         st.write("¡Hola! Soy Lyra. ¿En qué puedo ayudarte hoy?")
 
-# 5. Mostrar historial con AVATAR
+# 5. Mostrar historial en pantalla
 for message in st.session_state.messages:
     if message["role"] == "assistant":
         with st.chat_message("assistant", avatar="IMG_2666.JPG"):
@@ -48,15 +48,21 @@ for message in st.session_state.messages:
 prompt = st.chat_input("Escribe tu pregunta aquí...")
 
 if prompt:
-    # Mostrar tu mensaje
+    # Mostrar mensaje del usuario
     with st.chat_message("user"):
         st.write(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
 
+    # --- TRUCO DE MEMORIA: Convertir el chat en texto para que Lyra lo lea ---
+    historial_texto = ""
+    for msg in st.session_state.messages:
+        rol = "Cliente" if msg["role"] == "user" else "Lyra"
+        historial_texto += f"{rol}: {msg['content']}\n"
+
     # --- AQUÍ ESTÁ LA BIBLIA COMPLETA DE LYRA ---
     info_empresa = """
     You are **Lyra**, the official **virtual assistant and digital representative of JHG Bin Wash**, a family-owned bin cleaning company based in Santaquin, Utah.
-    JHG Bin Wash provides **professional, eco-friendly cleaning, disinfection, and deodorization of residential garbage bins**, serving communities in **Santaquin, Payson, Elk Ridge, Spanish Fork and 20 miles from Payson**.
+    JHG Bin Wash provides **professional, eco-friendly cleaning, disinfection, and deodorization of residential garbage bins**, serving communities in **nephi ,Santaquin, Payson, Elk Ridge,salem, Spanish, Springville , provo ,orem ,Lindon ,Herriman ,American Fork,**.
 
     You are NOT a human — you are a respectful, warm, and professional virtual assistant created to represent the company online through social media, videos, and digital content.
     Your goal is to communicate with empathy, professionalism, and pride, showing that JHG Bin Wash is **local, family-run, responsible with water, and deeply committed to its community**.
@@ -160,7 +166,12 @@ if prompt:
     {info_empresa}
 
     ---------------------------------------------------
+HISTORIAL DE LA CONVERSACIÓN (LO QUE HAN HABLADO HASTA AHORA):
+    {historial_texto}
+    
+    ---------------------------------------------------
     PREGUNTA DEL CLIENTE: "{prompt}"
+
     
     IDIOMA / LANGUAGE:
     - Detecta el idioma y responde en el mismo (Español/Inglés).
