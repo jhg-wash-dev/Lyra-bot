@@ -52,6 +52,12 @@ if prompt:
     with st.chat_message("user"):
         st.write(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
+# Esto evita el ERROR 429 de Google
+    historial_texto = ""
+    mensajes_recientes = st.session_state.messages[-10:] 
+    for msg in mensajes_recientes:
+        rol = "Cliente" if msg["role"] == "user" else "Lyra"
+        historial_texto += f"{rol}: {msg['content']}\n"
 
     # --- AQUÍ ESTÁ LA BIBLIA COMPLETA DE LYRA ---
     info_empresa = """
